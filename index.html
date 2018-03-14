@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ui</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link rel="stylesheet" href="./data/reset.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style >
+      html,body{height:100%;}
+      .ovf{
+        overflow: hidden;
+      }
+      .fl{
+        float: left;
+      }
+      .fr{
+        float: right;
+      }
+     .fade-enter-active, .fade-leave-active {
+      transition: opacity .3s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+      opacity: 0;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="/dist/build.js"></script>
+    <script src="./data/jquery.js"></script>
+    <script >
+
+    $.ajax({
+        url: "http://qzone-music.qq.com/fcg-bin/cgi_playlist_xml.fcg?uin=1440374646&json=1",
+        dataType: 'jsonp',
+        data: '',
+        jsonp: 'callback',
+        success: function (result) {
+         console.log(result)
+        },
+        timeout: 3000
+      });  
+
+
+  //  $.get('http://crossdomain.com/services.php?callback=?', function (json) { 
+  //    console.log(json)
+  //  }); 
+
+    </script>
+
+
+  </script>
+  </body>
+</html>
