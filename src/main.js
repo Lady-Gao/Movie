@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
-import iView from 'iview'
 import $ from 'jquery'
 import store from './store/store.js'
 import router from './router.js'

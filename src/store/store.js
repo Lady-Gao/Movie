@@ -5,7 +5,10 @@ export default new Vuex.Store({
     state:{
         movies:[],
         moviestalk:{},
-        cinemas:[]
+        cinemas:[],
+        placeNm:"",
+        movieId:"",
+        chooseSet:''
     },
     mutations:{
         moveinit(state,paylade){
@@ -13,10 +16,19 @@ export default new Vuex.Store({
         },
         movietalk(state,paylade){
             state.moviestalk = paylade.talk 
+            state.movieId = paylade.id 
             
         },
         cinema(state,paylade){
             state.cinemas = paylade.cinemas 
+        },
+        //地区电影院数组
+        allPlace(state, paylade) {
+            state.placeNm = paylade.place
+        },
+        //当前影院的电影放映
+        chooseSet(state, paylade) {
+            state.chooseSet = paylade.chooseSet
         }
     },
     actions:{
@@ -29,12 +41,30 @@ export default new Vuex.Store({
         async MOVIETALK({ commit },{id}) {
             var res = await fetch("/api/movie/" + id + ".json").then(data => data.json())
             commit("movietalk", {
-                "talk": res.data.CommentResponseModel.hcmts})
+                "talk": res.data.CommentResponseModel.hcmts, "id": id})
         },
         //影院
         async CINEMA({ commit }) {
-            var res = await fetch("/api/cinemas.json").then(data => data)
-            commit("cinema", { "cinemas":res.data })
+            var res = await fetch("/api/cinemas.json").then(data => data.json())
+             commit("cinema", { "cinemas":res.data })
+        },
+        //选座
+        async CHOOSESET({ commit },payload) {
+            var cid = payload.cinemaid
+            var mid = payload.movieid
+            var res = await fetch("api/showtime/wrap.json?cinemaid=" + cid+"&movieid=" + mid).then(data => data.json())
+            commit("chooseSet", { "chooseSet":res })
+        },
+    },
+    getters:{
+        placeNm(state){
+            for (const key in state.cinemas) {
+                if (state.cinemas.hasOwnProperty(state.placeNm)) {
+                    return state.cinemas[key]
+                }
+            }
+            
+            
         }
     }
 })

@@ -6,28 +6,31 @@
         <div class="Cinema" v-height="90">
      <div class="list">
          <mu-grid-list class="gridlist-demo">
-        <mu-grid-tile v-for="(tile,index) in 10" :key="index" >
-            <img @click="showCinema" src="http://imgsrc.baidu.com/image/c0%3Dpixel_huitu%2C0%2C0%2C294%2C40/sign=8872ba0170f40ad101e9cfa33e5474b3/7acb0a46f21fbe09e96a4e2d60600c338744add7.jpg"/>
-        <span slot="title" >{{tile}}</span>
-        <!-- <span slot="subTitle">by <b>{{tile.nm}}</b></span> -->
+        <mu-grid-tile v-for="(tile,index) in list" :key="index" >
+            <img @click="showCinema(tile)" src="http://imgsrc.baidu.com/image/c0%3Dpixel_huitu%2C0%2C0%2C294%2C40/sign=8872ba0170f40ad101e9cfa33e5474b3/7acb0a46f21fbe09e96a4e2d60600c338744add7.jpg"/>
+        <span slot="title" ><b>{{tile}}</b></span>
+        <span slot="subTitle">by</span>
         <mu-icon-button icon="star_border" slot="action"/>
         </mu-grid-tile>
   </mu-grid-list>
      </div>
     </div>
-     <!-- <div class="place" v-if="cinema">
-222
-     </div> -->
-     <router-view></router-view>
+    <transition name="fade">
+     <div class="place" v-if="cinema.cinema">
+        <VueAllCinema :cinema="cinema"></VueAllCinema>
+     </div>
+     </transition>
    </div>
 </template>
 
 <script>
+import VueAllCinema from './allCinema.vue'
     export default {
         props:["isshow"],
         data(){
             return {
-               cinema:false,
+                //单个地区所有影院
+               cinema:{cinema:false,place:""},
                 showBtn:true,
                 toggle:false
             }
@@ -42,14 +45,18 @@
                for (const key in this.$store.state.cinemas) {
                    arr.push(key)
                }
-               console.log(arr)
-               return arr
+               console.log(this.$store.state.cinemas)
+                return arr
             }
         },
         methods:{
-            showCinema(){
-                this.cinema=!this.cinema
-            }
+            showCinema(p){
+                this.cinema.cinema=!this.cinema.cinema
+                this.cinema.place=p
+               //请求地区电影院数组
+               this.$store.commit("allPlace",{"place":p})
+              
+             }
         },
          watch:{
           toggle(v){
@@ -61,6 +68,9 @@
            }, 200);
           }
        }
+   },
+   components:{
+       VueAllCinema
    }
     }
 </script>
@@ -88,8 +98,8 @@
     left:0;
     width:100%;
     height:100%;
-    z-index:6;
-    background-color: rgb(214, 218, 218);
+    z-index:8;
+    background-color: rgb(160, 167, 167);
     overflow: hidden;
 }
 .header{
