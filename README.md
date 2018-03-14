@@ -2,7 +2,12 @@
 
 > A Vue.js project
 
-## Build Setup
+## 电影栏
+![image](./data/img/1.png)
+![image](./data/img/2.png)
+![image](./data/img/3.png)
+![image](./data/img/4.png)
+![image](./data/img/5.png)
 
 ``` bash
 # install dependencies
