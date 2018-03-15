@@ -4,14 +4,16 @@
 
 ## 电影栏
 <figure class="third">
-![image](./data/img/1.png)
-![image](./data/img/2.png)
-![image](./data/img/3.png)
-![image](./data/img/4.png)
-![image](./data/img/5.png)
-![image](./data/img/6.png)
-![image](./data/img/7.png)
+    <img src="./data/img/1.png">
+    <img src="./data/img/2.png">
+    <img src="./data/img/3.png">
+    <img src="./data/img/4.png">
+    <img src="./data/img/5.png">
+    <img src="./data/img/6.png">
+    <img src="./data/img/7.png">
 </figure>
+
+
 ``` bash
 # install dependencies
 npm install
